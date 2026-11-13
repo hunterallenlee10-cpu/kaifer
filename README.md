@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Kaifer Insurance Group: concept site
 
-## Getting Started
+A front-end-only concept for The Kaifer Insurance Group in Cockeysville, MD, built by Lee Enterprises Unlimited. It uses Next.js 16 (App Router), TypeScript and Tailwind CSS 4.
 
-First, run the development server:
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production build: `npm run build`, then `npm start`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Where things live
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `lib/business.ts`: every business fact. Edit here first.
+- `lib/ledger.ts`: the Client-Family Ledger entries, with their sources in comments.
+- `lib/checkup.ts`: the life-event map for the Quote Builder.
+- `lib/faq.ts`: the FAQ, shared by the page and the FAQPage JSON-LD.
+- `lib/site.ts`: the launch switch (`NEXT_PUBLIC_SITE_MODE`, `NEXT_PUBLIC_SITE_URL`).
+- `components/sections/`: one file per section. Also `components/QuoteBuilder/` and `components/ClientLedger/`.
+- `scripts/optimize-images.mjs` (`npm run images`): turns `public/images/raw/` into `.webp` files and builds the favicons.
+- `scripts/make-og.mjs` (`npm run og`): builds `public/og-image.png`.
+- `docs/screenshots/`: desktop and mobile screenshots of the hero, the ledger, the team section and the Quote Builder.
 
-## Learn More
+## Deploy (Vercel)
 
-To learn more about Next.js, take a look at the following resources:
+Import the repository as a new project. No settings are needed: it deploys in **demo mode** (`noindex, nofollow`, with the concept footer line). To launch, follow `SEO-LAUNCH.md`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Search the code for `DRAFT` to see everything the owner still needs to confirm.
