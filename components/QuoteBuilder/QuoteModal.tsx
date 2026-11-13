@@ -1,17 +1,33 @@
 "use client";
 
 import { X } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
 import { useQuote } from "./QuoteContext";
-import dynamic from "next/dynamic";
 
-// The form code loads the first time the builder opens, not with the page.
-const QuoteForm = dynamic(() => import("./QuoteForm").then((m) => m.QuoteForm), { ssr: false });
+// The form code stays out of the first page load. It is fetched when the browser goes
+// idle, so the builder still opens instantly on the first tap.
+const loadForm = () => import("./QuoteForm").then((m) => m.QuoteForm);
+const QuoteForm = dynamic(loadForm, {
+  ssr: false,
+  loading: () => (
+    <p className="label px-5 py-10 sm:px-8" role="status">
+      Opening the Quote Builder
+    </p>
+  ),
+});
 
 /** The Quote Builder as a modal. Native <dialog> makes the page inert behind it. */
 export function QuoteModal() {
   const { isOpen, preset, session, close, returnFocus } = useQuote();
   const ref = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 2500));
+    const cancel = window.cancelIdleCallback ?? window.clearTimeout;
+    const id = idle(() => void loadForm(), { timeout: 5000 });
+    return () => cancel(id);
+  }, []);
 
   useEffect(() => {
     const d = ref.current;

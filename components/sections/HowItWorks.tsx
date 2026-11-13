@@ -1,3 +1,5 @@
+import { business } from "@/lib/business";
+
 const STEPS = [
   { n: "1", title: "Tell us what you want covered.", body: "Two minutes in the Quote Builder, or one phone call." },
   { n: "2", title: "We compare.", body: "Ten insurers, your coverage, side by side." },
@@ -8,10 +10,15 @@ export function HowItWorks() {
   return (
     <section aria-labelledby="how-title" className="section border-t border-rule">
       <div className="wrap">
-        <p className="label">How it works</p>
-        <h2 id="how-title" className="h2 mt-4 max-w-[40rem]">
-          Three steps, one conversation.
-        </h2>
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-6">
+            <p className="label">How it works</p>
+            <h2 id="how-title" className="h2 mt-4">
+              Three steps, one conversation.
+            </h2>
+          </div>
+          <p className="text-[1.0625rem] text-muted lg:col-span-6 lg:pb-2">&ldquo;{business.lines.mission}&rdquo;</p>
+        </div>
         <ol className="mt-12 grid border-y border-ink/25 md:grid-cols-3">
           {STEPS.map((s, i) => (
             <li

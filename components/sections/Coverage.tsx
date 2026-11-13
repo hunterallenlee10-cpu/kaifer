@@ -113,7 +113,7 @@ export function Coverage() {
             </article>
           ))}
 
-          <article className="sheet group relative flex flex-col bg-paper p-6 transition-colors hover:border-ink/40 md:col-span-2 lg:col-span-3 lg:p-7">
+          <article className="sheet group relative flex flex-col bg-paper p-6 transition-colors hover:border-ink/40 lg:col-span-3 lg:p-7">
             <div className="flex items-start justify-between gap-4">
               <h3 className="display text-[1.625rem] leading-none">Also</h3>
               <Layers size={22} strokeWidth={1.5} className="text-accent" aria-hidden="true" />

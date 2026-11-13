@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { photos, team } from "@/lib/business";
+import { business, photos, team } from "@/lib/business";
 
 export function Team() {
   return (
@@ -12,8 +12,9 @@ export function Team() {
               The people who pick up the phone.
             </h2>
             <p className="lede mt-5">
-              Three Kaifers, two generations, and a team that clients mention by name in their reviews: Patrick,
-              Debbie, Mark and Tim.
+              A family agency in its second generation. In the agency&rsquo;s words, Tim &ldquo;
+              {business.lines.goldStandard}&rdquo;. Clients mention Patrick, Debbie, Mark and Tim by name in their
+              reviews.
             </p>
           </div>
 
@@ -70,7 +71,8 @@ export function Team() {
                 ))}
               </ul>
             </div>
-            <p className="mt-5 text-[0.9375rem] italic text-muted">Yes, there is a fish tank. Patrick is in charge of it.</p>
+            <p className="mt-5 text-[0.9375rem] leading-relaxed text-muted">{business.licences}</p>
+            <p className="display-italic mt-4 text-[1.125rem] text-muted">Yes, there is a fish tank. Patrick is in charge of it.</p>
           </div>
         </div>
       </div>

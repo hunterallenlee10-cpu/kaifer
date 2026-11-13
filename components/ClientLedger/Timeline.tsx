@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, type MotionValue, useTransform } from "framer-motion";
-import { useRef } from "react";
+import type { MotionValue } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { CURRENT_YEAR, FOUNDED } from "@/lib/business";
 import { NEXT_YEAR_POS, SPAN, leftFor, yearsWithEntries } from "./geometry";
 
@@ -18,7 +18,17 @@ const YEARS = Array.from({ length: CURRENT_YEAR - FOUNDED + 1 }, (_, i) => FOUND
 export function Timeline({ pos, activeYear, focused, onPick }: Props) {
   const lineRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{ id: number; x: number; dragging: boolean } | null>(null);
-  const left = useTransform(pos, (p) => leftFor(p));
+  const handle = useRef<HTMLDivElement>(null);
+
+  // The handle follows the motion value directly, so it tracks a drag even before the
+  // animation engine has loaded.
+  useEffect(() => {
+    const place = (v: number) => {
+      if (handle.current) handle.current.style.left = leftFor(v);
+    };
+    place(pos.get());
+    return pos.on("change", place);
+  }, [pos]);
 
   const yearAt = (clientX: number) => {
     const el = lineRef.current;
@@ -73,7 +83,7 @@ export function Timeline({ pos, activeYear, focused, onPick }: Props) {
               <span
                 className={`absolute top-[18px] -translate-x-1/2 text-[0.75rem] font-semibold tracking-[0.06em] ${
                   activeYear === y ? "text-accent-ink" : "text-muted"
-                }`}
+                } ${!decade && !isFounding ? "md:max-lg:hidden" : ""}`}
               >
                 {y}
               </span>
@@ -102,7 +112,7 @@ export function Timeline({ pos, activeYear, focused, onPick }: Props) {
       {yearsWithEntries.map((y) => (
         <span
           key={y}
-          className={`absolute top-[44px] h-[9px] w-[9px] snap-center -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-paper ${
+          className={`absolute top-[44px] h-[9px] w-[9px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-paper ${
             activeYear === y ? "bg-accent" : "bg-accent/70"
           }`}
           style={{ left: leftFor(y), boxSizing: "content-box" }}
@@ -110,17 +120,18 @@ export function Timeline({ pos, activeYear, focused, onPick }: Props) {
       ))}
 
       {/* The handle that rides the line */}
-      <motion.div
+      <div
+        ref={handle}
         data-handle
         className="absolute top-[44px] z-10 -translate-x-1/2 -translate-y-1/2 cursor-grab p-2.5 active:cursor-grabbing"
-        style={{ left, touchAction: "none" }}
+        style={{ left: leftFor(pos.get()), touchAction: "none" }}
       >
         <span
           className={`block h-[26px] w-[26px] rounded-full border-[3px] border-paper bg-accent ring-1 ring-accent ${
             focused ? "outline-2 outline-offset-4 outline-accent-ink" : ""
           }`}
         />
-      </motion.div>
+      </div>
     </div>
   );
 }

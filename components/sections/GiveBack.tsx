@@ -52,7 +52,7 @@ export function GiveBack() {
             </figure>
           </div>
 
-          <div className="lg:col-span-5 lg:pt-6">
+          <div className="lg:col-span-5 lg:self-center">
             <h3 className="display text-[2rem] leading-tight">The chili cook-off</h3>
             <p className="mt-4 text-[1.0625rem] text-muted">
               The team runs a chili cook-off for the Dawn Hill Fight Foundation. These are the checks from our own
@@ -70,9 +70,9 @@ export function GiveBack() {
               <tbody>
                 {CHECKS.map((c) => (
                   <tr key={c.memo} className="border-b border-rule">
-                    <td className="py-3.5 pr-3 text-[0.9375rem]">{c.date}</td>
-                    <td className="py-3.5 pr-3 text-[0.9375rem] font-medium">{c.memo}</td>
-                    <td className="display py-3.5 text-right text-[1.625rem] text-accent">{c.amount}</td>
+                    <td className="py-3.5 pr-3 align-baseline text-[0.9375rem]">{c.date}</td>
+                    <td className="whitespace-nowrap py-3.5 pr-3 align-baseline text-[0.9375rem] font-medium">{c.memo}</td>
+                    <td className="display py-3.5 text-right align-baseline text-[1.5rem] text-accent sm:text-[1.625rem]">{c.amount}</td>
                   </tr>
                 ))}
               </tbody>
@@ -83,7 +83,7 @@ export function GiveBack() {
         {/* Chemo Comfies, H.O.P.E. and the 4-H Fair */}
         <div className="mt-20 grid gap-4 lg:grid-cols-12">
           <article className="sheet p-5 sm:p-7 lg:col-span-7">
-            <div className="grid grid-cols-[minmax(0,0.62fr)_minmax(0,1fr)] gap-3 sm:gap-4">
+            <div className="grid grid-cols-[minmax(0,0.62fr)_minmax(0,1fr)] gap-x-3 gap-y-5 sm:gap-x-5 sm:gap-y-0">
               <Image
                 src={photos.comfiesDelivery.src}
                 width={photos.comfiesDelivery.width}
@@ -91,24 +91,24 @@ export function GiveBack() {
                 alt="A KIG team member in a blue suit beside clear bags of handmade fleece blankets in a GBMC hospital lobby."
                 sizes="(min-width: 1024px) 240px, 38vw"
                 loading="lazy"
-                className="block h-full max-h-[420px] w-full max-w-[428px] rounded-[3px] object-cover"
+                className="block h-full max-h-[420px] w-full max-w-[428px] rounded-[3px] object-cover sm:row-span-2"
               />
-              <div className="flex flex-col">
-                <Image
-                  src={photos.comfiesTable.src}
-                  width={photos.comfiesTable.width}
-                  height={photos.comfiesTable.height}
-                  alt="Tables stacked with colourful handmade fleece tie blankets."
-                  sizes="(min-width: 1024px) 400px, 58vw"
-                  loading="lazy"
-                  className="block h-auto w-full max-w-[640px] rounded-[3px]"
-                />
-                <h3 className="display mt-5 text-[1.75rem] leading-tight">Chemo Comfies</h3>
+              <Image
+                src={photos.comfiesTable.src}
+                width={photos.comfiesTable.width}
+                height={photos.comfiesTable.height}
+                alt="Tables stacked with colourful handmade fleece tie blankets."
+                sizes="(min-width: 1024px) 400px, 58vw"
+                loading="lazy"
+                className="block h-full w-full max-w-[640px] rounded-[3px] object-cover sm:h-auto"
+              />
+              <div className="col-span-2 flex flex-col sm:col-span-1 sm:col-start-2 sm:pt-5">
+                <h3 className="display text-[1.75rem] leading-tight">Chemo Comfies</h3>
                 <p className="mt-2 text-muted">
                   The non-profit Dottie Pope created, making handmade fleece blankets for cancer patients.
                 </p>
                 {/* DRAFT: confirm the GBMC delivery caption. */}
-                <p className="mt-auto border-t border-rule pt-3 text-[0.875rem] text-muted">A delivery to GBMC.</p>
+                <p className="mt-4 border-t border-rule pt-3 text-[0.875rem] text-muted sm:mt-auto">A delivery to GBMC.</p>
               </div>
             </div>
           </article>

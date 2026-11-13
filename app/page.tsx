@@ -13,7 +13,7 @@ import { Reviews } from "@/components/sections/Reviews";
 import { Faq } from "@/components/sections/Faq";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { JsonLd } from "@/components/JsonLd";
-import { agencySchema, faqSchema, serviceSchemas } from "@/lib/schema";
+import { agencySchema, faqSchema, serviceSchemas, websiteSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: { absolute: "Insurance Agency in Cockeysville MD | Kaifer Insurance Group" },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <JsonLd data={[agencySchema(), faqSchema(), ...serviceSchemas()]} />
+      <JsonLd data={[agencySchema(), websiteSchema(), faqSchema(), ...serviceSchemas()]} />
       <Hero />
       <WhyIndependent />
       <ClientLedger />

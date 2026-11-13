@@ -4,7 +4,7 @@ Concept site by Lee Enterprises Unlimited. A front-end-only Next.js build, "Blue
 
 ## Plan
 
-- **Stack:** Next.js 16 (App Router) with TypeScript and Tailwind CSS 4. Framer Motion only in `components/sections/ShopAround.tsx` and `components/ClientLedger/`. `lucide-react` for icons. `@vercel/analytics` loads only on Vercel.
+- **Stack:** Next.js 16 (App Router) with TypeScript and Tailwind CSS 4. Motion in two places only: the Shop-Around (`components/sections/ShopAround.tsx`, on the browser's Web Animations API) and the Client-Family Ledger (`components/ClientLedger/`, on Framer Motion, loaded when the ledger nears the viewport). `lucide-react` for icons. `@vercel/analytics` loads only on Vercel.
 - **Data:** `lib/business.ts` holds every fact. `lib/ledger.ts` holds the Client-Family entries, with their sources in comments. `lib/checkup.ts` holds the life-event map. `lib/site.ts` holds the launch switch.
 - **Images:** the originals are in `public/images/raw/`. `npm run images` (sharp) writes `.webp` files to `public/images/` plus the logo PNG, the favicon (`app/icon.png`), the Apple touch icon (`app/apple-icon.png`) and `public/og-image.png`.
 - **Pages:** `/` (the landing page), `/contact` and a real 404.
