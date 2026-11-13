@@ -21,6 +21,14 @@ export function agencySchema() {
     faxNumber: "+14105847614",
     email: business.email,
     foundingDate: String(business.founded),
+    founder: { "@type": "Person", name: "J. Timothy Kaifer" },
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: business.phone.e164,
+      email: business.email,
+      contactType: "customer service",
+      areaServed: "US",
+    },
     slogan: business.legalTagline,
     description:
       "A family owned independent insurance agency in Cockeysville, Maryland, comparing ten insurers for auto, home, business and life insurance since 1974.",
@@ -50,6 +58,19 @@ export function agencySchema() {
     hasMap: business.links.maps,
     sameAs: [business.links.facebook, business.links.x],
     knowsAbout: [...coverage.personal.slice(0, 6), ...coverage.business.slice(0, 5), ...coverage.life.slice(0, 2)],
+  };
+}
+
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${absolute("/")}#website`,
+    name: business.name,
+    alternateName: ["Kaifer Insurance Group", business.shortName],
+    url: absolute("/"),
+    inLanguage: "en-US",
+    publisher: { "@id": AGENCY_ID() },
   };
 }
 

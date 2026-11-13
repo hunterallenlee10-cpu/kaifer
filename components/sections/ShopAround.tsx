@@ -50,7 +50,7 @@ export function ShopAround() {
       <ul
         ref={rowRef}
         aria-label="The ten insurers we compare"
-        className="relative flex flex-wrap gap-x-2 gap-y-2.5 border-b border-rule pb-4"
+        className="relative flex flex-wrap gap-x-2 gap-y-2.5 border-b border-rule pb-4 lg:border-b-0 lg:pb-0"
       >
         {insurers.map((ins) => (
           <li

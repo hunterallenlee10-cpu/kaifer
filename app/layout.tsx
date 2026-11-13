@@ -15,9 +15,20 @@ import { social } from "@/lib/meta";
 const display = Newsreader({
   subsets: ["latin"],
   weight: ["500", "600"],
-  style: ["normal", "italic"],
+  style: ["normal"],
   variable: "--font-newsreader",
   display: "swap",
+});
+
+// The italic is only used below the fold (the pull quote and one aside), so it is not
+// preloaded. That leaves the first connection to the hero photo and the two main fonts.
+const displayItalic = Newsreader({
+  subsets: ["latin"],
+  weight: ["500"],
+  style: ["italic"],
+  variable: "--font-newsreader-italic",
+  display: "swap",
+  preload: false,
 });
 
 const sans = Public_Sans({
@@ -44,7 +55,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${display.variable} ${displayItalic.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
         {/* Lets CSS hold the Shop-Around slips until they are dealt. Without JS they simply show. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

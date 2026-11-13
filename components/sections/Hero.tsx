@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Phone } from "lucide-react";
+import { ArrowUpRight, Phone } from "lucide-react";
 import { business, photos } from "@/lib/business";
 import { QuoteButton } from "@/components/QuoteBuilder/QuoteButton";
 import { Seal } from "@/components/Seal";
@@ -10,8 +10,8 @@ const FACTS = ["Family owned since 1974", "Ten insurers, one call", "4.9 on Goog
 export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden">
-      <div className="wrap pb-16 pt-8 sm:pt-12 lg:pb-28 lg:pt-20">
-        <div className="flex flex-col lg:grid lg:grid-cols-12 lg:grid-rows-[auto_auto_auto_auto_auto_1fr] lg:gap-x-14">
+      <div className="wrap pb-16 pt-8 sm:pt-12 lg:pb-24 lg:pt-20">
+        <div className="flex flex-col lg:grid lg:grid-cols-12 lg:gap-x-14">
           {/* The eyebrow and the headline together are the page's only h1. */}
           <h1 id="hero-title" className="lg:col-span-7 lg:row-start-1">
             <span className="label block text-accent-ink">Independent insurance agency in Cockeysville, MD</span>
@@ -34,34 +34,61 @@ export function Hero() {
             compared insurers for our clients, Erie among them, for auto, home, business and life.
           </p>
 
-          <figure className="relative mt-12 lg:col-span-5 lg:col-start-8 lg:row-span-6 lg:row-start-1 lg:mt-10 lg:self-start">
-            <Seal className="absolute -left-4 -top-9 z-10 w-[92px] sm:-left-8 sm:-top-11 sm:w-[112px]" />
-            <div className="sheet p-2.5 sm:p-3">
-              <Image
-                src={photos.hero.src}
-                width={photos.hero.width}
-                height={photos.hero.height}
-                alt="Eight members of the Kaifer Insurance Group team in purple KIG shirts holding a $5,000 check to the Dawn Hill Fight Foundation beside the Chili 8 cook-off entry board."
-                preload
-                fetchPriority="high"
-                sizes="(min-width: 1240px) 470px, (min-width: 1024px) 38vw, (min-width: 640px) 90vw, 100vw"
-                className="block h-auto w-full rounded-[3px]"
-              />
-              <figcaption className="mt-2.5 border-t border-rule pt-2.5 text-[0.875rem] leading-snug text-muted">
-                The KIG team at Chili 8, November 7, 2026. $5,000 for the Dawn Hill Fight Foundation.
-              </figcaption>
+          <div className="mt-12 lg:col-span-5 lg:col-start-8 lg:row-span-4 lg:row-start-1 lg:mt-10">
+            <figure className="relative">
+              <Seal className="absolute -left-4 -top-9 z-10 w-[92px] sm:-left-8 sm:-top-11 sm:w-[112px]" />
+              <div className="sheet p-2.5 sm:p-3">
+                <Image
+                  src={photos.hero.src}
+                  width={photos.hero.width}
+                  height={photos.hero.height}
+                  alt="Eight members of the Kaifer Insurance Group team in purple KIG shirts holding a $5,000 check to the Dawn Hill Fight Foundation beside the Chili 8 cook-off entry board."
+                  preload
+                  fetchPriority="high"
+                  quality={70}
+                  sizes="(min-width: 1240px) 446px, (min-width: 1024px) 36vw, (min-width: 640px) calc(100vw - 90px), calc(100vw - 54px)"
+                  className="block h-auto w-full rounded-[3px]"
+                />
+                <figcaption className="mt-2.5 border-t border-rule pt-2.5 text-[0.875rem] leading-snug text-muted">
+                  The KIG team at Chili 8, November 7, 2026. $5,000 for the Dawn Hill Fight Foundation.
+                </figcaption>
+              </div>
+            </figure>
+
+            {/* The office, on a ruled index card. Desktop only: on a phone the call buttons do this job. */}
+            <div className="sheet mt-4 hidden lg:block">
+              <dl className="ruled px-4">
+                <div className="grid grid-cols-[4.25rem_1fr] gap-3 py-3">
+                  <dt className="label pt-[3px]">Office</dt>
+                  <dd className="text-[0.9375rem] leading-snug">{business.address.full}</dd>
+                </div>
+                <div className="grid grid-cols-[4.25rem_1fr] gap-3 py-3">
+                  <dt className="label pt-[3px]">Hours</dt>
+                  {/* DRAFT: the current site says 9:00am to 5:00pm. Confirm with Mark. */}
+                  <dd className="text-[0.9375rem] leading-snug">{business.hours.summary}</dd>
+                </div>
+              </dl>
+              <a
+                href={business.links.maps}
+                className="flex min-h-[44px] items-center justify-between gap-3 border-t border-rule px-4 text-[0.9375rem] font-semibold text-accent-ink hover:underline hover:underline-offset-4"
+              >
+                Get directions on Google Maps
+                <ArrowUpRight size={17} strokeWidth={1.75} aria-hidden="true" />
+              </a>
             </div>
-          </figure>
+          </div>
 
           <div className="mt-10 lg:col-span-7 lg:row-start-4 lg:mt-12">
             <ShopAround />
           </div>
 
-          <ul className="mt-6 grid gap-0 sm:grid-cols-3 lg:col-span-7 lg:row-start-5">
+          <ul className="mt-6 grid sm:grid-cols-3 lg:col-span-12 lg:row-start-5 lg:mt-12 lg:flex lg:border-t lg:border-rule lg:pt-5">
             {FACTS.map((f, i) => (
               <li
                 key={f}
-                className={`label py-2.5 text-ink/80 sm:py-1 ${i > 0 ? "border-t border-rule sm:border-l sm:border-t-0 sm:pl-4" : ""} ${i < 2 ? "sm:pr-4" : ""}`}
+                className={`label py-2.5 text-ink/80 sm:py-1 lg:whitespace-nowrap ${
+                  i > 0 ? "border-t border-rule sm:border-l sm:border-t-0 sm:pl-4 lg:pl-8" : ""
+                } ${i < 2 ? "sm:pr-4 lg:pr-8" : ""}`}
               >
                 {f}
               </li>

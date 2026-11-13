@@ -78,6 +78,10 @@ export const business = {
     goldStandard: "and his wife Jackie have set a gold standard for personalized insurance service",
   },
 
+  // Named on their site. No licence numbers.
+  licences:
+    "Our agents hold Property and Casualty and Life and Health licences in Maryland, Pennsylvania and Virginia. Individual agents are also licensed in Ohio and DC.",
+
   // Google rating, shown as text only. Never marked up as aggregateRating.
   rating: { score: "4.9", count: 32, checked: "November 13, 2026" },
 

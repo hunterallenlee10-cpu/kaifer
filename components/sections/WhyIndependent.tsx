@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { business, insurers } from "@/lib/business";
 import { QuoteButton } from "@/components/QuoteBuilder/QuoteButton";
 
@@ -23,7 +23,7 @@ export function WhyIndependent() {
             </div>
             {/* DRAFT: confirm Mark is happy to feature this. */}
             <figure className="mt-10 border-l-2 border-accent pl-6">
-              <blockquote className="display text-[1.625rem] italic leading-snug sm:text-[1.875rem]">
+              <blockquote className="display-italic text-[1.625rem] leading-snug sm:text-[1.875rem]">
                 &ldquo;{business.result.quote}&rdquo;
               </blockquote>
               <figcaption className="mt-4">
@@ -68,25 +68,44 @@ export function WhyIndependent() {
                           </span>
                         ) : null}
                       </td>
-                      <td className="py-3.5 pr-5 text-right align-top text-[0.9375rem] text-muted sm:pr-6">
+                      <td className="whitespace-nowrap py-3.5 pr-5 text-right align-top text-[0.9375rem] text-muted sm:pr-6">
                         {ins.tag ?? ""}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+              {/* The agency's own ERIE links. Each carries agent number BB1367 where ERIE supports it. */}
+              <div className="border-t border-rule bg-paper/60 px-5 py-4 sm:px-6">
+                <p className="label">Erie online</p>
+                <ul className="mt-1 flex flex-wrap gap-x-6">
+                  {[
+                    { href: business.erie.autoQuote, label: "Start an ERIE auto quote" },
+                    { href: business.erie.lifeCalculator, label: "ERIE life insurance calculator" },
+                    { href: business.erie.billPay, label: "Pay an ERIE bill" },
+                  ].map((l) => (
+                    <li key={l.href}>
+                      <a href={l.href} className="text-link inline-flex min-h-[44px] items-center gap-1 text-[0.9375rem] font-medium">
+                        {l.label}
+                        <ArrowUpRight size={15} strokeWidth={1.75} aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[0.8125rem] text-muted">These open erieinsurance.com, linked to our agency.</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-16 grid gap-4 md:grid-cols-12 lg:mt-20">
-          <article className="sheet flex flex-col p-6 md:col-span-4 lg:p-7">
+        <div className="mt-16 grid gap-4 md:grid-cols-2 lg:mt-20 lg:grid-cols-[1fr_1.2fr_0.95fr]">
+          <article className="sheet flex flex-col p-6 lg:p-7">
             <p className="label">New to us</p>
             <h3 className="display mt-3 text-[1.625rem] leading-tight">Two minutes, or one phone call.</h3>
             <p className="mt-3 text-muted">Tell us what you want covered and we compare it across our insurers.</p>
             <QuoteButton className="btn btn-primary mt-6 self-start">Get My Quote</QuoteButton>
           </article>
-          <article className="sheet flex flex-col p-6 md:col-span-5 lg:p-7">
+          <article className="sheet flex flex-col p-6 lg:p-7">
             <p className="label">At claim time</p>
             <h3 className="display mt-3 text-[1.625rem] leading-tight">We stay on your side.</h3>
             <p className="mt-3 text-muted">&ldquo;{business.lines.claimPromise}&rdquo;</p>
@@ -95,7 +114,7 @@ export function WhyIndependent() {
               <ArrowRight size={18} strokeWidth={1.75} aria-hidden="true" />
             </QuoteButton>
           </article>
-          <article className="sheet flex flex-col p-6 md:col-span-3 lg:p-7">
+          <article className="sheet flex flex-col p-6 md:col-span-2 lg:col-span-1 lg:p-7">
             <p className="label">Run a business?</p>
             <h3 className="display mt-3 text-[1.625rem] leading-tight">We meet on your hours.</h3>
             <p className="mt-3 text-muted">For business owners, &ldquo;{business.lines.afterHours}&rdquo;</p>

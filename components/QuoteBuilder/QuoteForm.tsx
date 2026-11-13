@@ -1,11 +1,11 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Check, Mail, MessageSquare, Phone } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Copy, Mail, MessageSquare, Phone } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { business } from "@/lib/business";
-import { mailtoFor, routingLine, smsFor, summarize } from "@/lib/quote-message";
+import { bodyFor, mailtoFor, routingLine, smsFor, subjectFor, summarize } from "@/lib/quote-message";
 import { StepChanges, StepCoverage, StepInfo, StepService, StepStanding, validate, type Errors } from "./Steps";
-import { initialState, type FormState, type QuotePreset } from "./types";
+import { initialState, type FormState, type QuoteMode, type QuotePreset } from "./types";
 
 const QUOTE_STEPS = [
   { key: "coverage", title: "What do you want covered?" },
@@ -70,10 +70,29 @@ export function QuoteForm({ preset, titleId, variant = "modal", onClose }: Props
       }
     }
     setErrors({});
+    // An existing client is usually the policyholder, so carry the name forward.
+    if (dir === 1 && step.key === "service" && !s.name.trim()) setS((prev) => ({ ...prev, name: prev.policyholder }));
     setStepIdx((i) => Math.max(0, Math.min(steps.length - 1, i + dir)));
   };
 
-  if (done) return <Success s={s} hId={hId} headingRef={headingRef} onClose={onClose} />;
+  // New quote or policy service. Offered on the first step only, and keeps whatever was typed.
+  const switchMode = (mode: QuoteMode) => {
+    if (mode === s.mode) return;
+    touched.current = true;
+    setErrors({});
+    setStepIdx(0);
+    setS((prev) => ({ ...prev, mode }));
+  };
+
+  const restart = () => {
+    touched.current = true;
+    setS(initialState({ mode: s.mode }));
+    setErrors({});
+    setStepIdx(0);
+    setDone(false);
+  };
+
+  if (done) return <Success s={s} hId={hId} headingRef={headingRef} onClose={onClose} onRestart={restart} />;
 
   const pct = ((stepIdx + 1) / steps.length) * 100;
 
@@ -107,6 +126,36 @@ export function QuoteForm({ preset, titleId, variant = "modal", onClose }: Props
       </div>
 
       <div ref={bodyRef} key={step.key} className="animate-[fade_220ms_ease-out] px-5 py-6 sm:px-8">
+        {stepIdx === 0 ? (
+          <fieldset className="mb-6">
+            <legend className="sr-only">What kind of request is this?</legend>
+            <div className="grid grid-cols-2 rounded-[6px] border border-rule bg-paper p-1">
+              {(
+                [
+                  ["quote", "New quote"],
+                  ["service", "I am already a client"],
+                ] as const
+              ).map(([mode, label]) => (
+                <label
+                  key={mode}
+                  className={`flex min-h-[44px] cursor-pointer items-center justify-center rounded-[4px] px-2 text-center text-[0.9375rem] font-semibold leading-tight transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-ink ${
+                    s.mode === mode ? "border border-rule bg-sheet text-ink" : "border border-transparent text-muted hover:text-ink"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name={`${uid}-mode`}
+                    value={mode}
+                    checked={s.mode === mode}
+                    onChange={() => switchMode(mode)}
+                    className="sr-only"
+                  />
+                  {label}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ) : null}
         {step.key === "coverage" && <StepCoverage s={s} set={set} errors={errors} uid={uid} />}
         {step.key === "changes" && <StepChanges s={s} set={set} errors={errors} uid={uid} />}
         {step.key === "standing" && <StepStanding s={s} set={set} errors={errors} uid={uid} />}
@@ -145,13 +194,36 @@ function Success({
   hId,
   headingRef,
   onClose,
+  onRestart,
 }: {
   s: FormState;
   hId: string;
   headingRef: React.RefObject<HTMLHeadingElement | null>;
   onClose?: () => void;
+  onRestart: () => void;
 }) {
   const rows = summarize(s);
+  const [copied, setCopied] = useState(false);
+
+  // For visitors with no mail app set up: the same text, ready to paste anywhere.
+  const copy = async () => {
+    const text = `${subjectFor(s)}\n\n${bodyFor(s)}`;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2500);
+  };
   return (
     <div className="flex min-h-0 flex-1 flex-col px-5 py-6 sm:px-8 sm:py-8">
       <span className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-accent text-accent">
@@ -193,11 +265,23 @@ function Success({
           </a>
         ) : null}
       </div>
-      {onClose ? (
-        <button type="button" onClick={onClose} className="mt-5 self-start text-[0.9375rem] text-link">
-          Close and keep reading
+      <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-1">
+        <button type="button" onClick={copy} className="inline-flex min-h-[44px] items-center gap-1.5 text-[0.9375rem] text-link">
+          <Copy size={16} strokeWidth={1.75} aria-hidden="true" />
+          {copied ? "Copied" : "Copy this request"}
         </button>
-      ) : null}
+        <button type="button" onClick={onRestart} className="min-h-[44px] text-[0.9375rem] text-link">
+          Start another request
+        </button>
+        {onClose ? (
+          <button type="button" onClick={onClose} className="min-h-[44px] text-[0.9375rem] text-link">
+            Close and keep reading
+          </button>
+        ) : null}
+        <span className="sr-only" role="status">
+          {copied ? "Request copied to the clipboard." : ""}
+        </span>
+      </div>
     </div>
   );
 }

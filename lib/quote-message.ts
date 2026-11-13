@@ -5,6 +5,12 @@ import { coverageLabel, serviceLabel, type FormState } from "@/components/QuoteB
 
 export type SummaryRow = { label: string; value: string };
 
+/** Ten digits become (410) 555-0100. Anything else is left as typed. */
+export function formatPhone(raw: string): string {
+  const d = raw.replace(/\D/g, "").replace(/^1(?=\d{10}$)/, "");
+  return d.length === 10 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : raw.trim();
+}
+
 /** Plain rows describing a request, used on the success screen and in the email body. */
 export function summarize(s: FormState): SummaryRow[] {
   const rows: SummaryRow[] = [];
@@ -26,7 +32,7 @@ export function summarize(s: FormState): SummaryRow[] {
     if (s.zip) rows.push({ label: "ZIP code", value: s.zip });
   }
   rows.push({ label: "Name", value: s.name });
-  rows.push({ label: "Phone", value: s.phone });
+  rows.push({ label: "Phone", value: formatPhone(s.phone) });
   if (s.email) rows.push({ label: "Email", value: s.email });
   if (s.bestTime) rows.push({ label: "Best time to call", value: s.bestTime });
   if (s.notes) rows.push({ label: "Notes", value: s.notes });

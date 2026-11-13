@@ -2,7 +2,7 @@ import { CURRENT_YEAR, FOUNDED } from "@/lib/business";
 import { ledger } from "@/lib/ledger";
 
 /** The "Next" stop sits a short gap after the current year. */
-export const NEXT_YEAR_POS = CURRENT_YEAR + 3;
+export const NEXT_YEAR_POS = CURRENT_YEAR + 4;
 export const SPAN = NEXT_YEAR_POS - FOUNDED;
 
 /**

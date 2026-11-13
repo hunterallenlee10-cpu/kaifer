@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Menu, Phone, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { business } from "@/lib/business";
+import logoNav from "@/public/images/logo-nav.webp";
 import { QuoteButton } from "@/components/QuoteBuilder/QuoteButton";
 
 export const NAV_LINKS = [
@@ -48,9 +49,9 @@ export function Nav() {
       </a>
       <div className="wrap flex h-16 items-center gap-4 lg:h-[72px]">
         <Link href="/" className="mr-auto flex shrink-0 items-center py-1" aria-label="The Kaifer Insurance Group, home">
-          {/* A plain, pre-sized image: the hero photo keeps the network to itself. */}
+          {/* A plain, pre-sized image with a hashed, long-cached URL. The hero photo keeps the network to itself. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/logo-nav.webp" width={220} height={106} alt="" decoding="async" className="h-[42px] w-auto lg:h-[48px]" />
+          <img src={logoNav.src} width={logoNav.width} height={logoNav.height} alt="" decoding="async" className="h-[42px] w-auto lg:h-[48px]" />
         </Link>
 
         <nav aria-label="Sections" className="hidden xl:block">
@@ -122,7 +123,7 @@ export function Nav() {
             </li>
           </ul>
           <div className="mt-8 grid gap-3">
-            <QuoteButton className="btn btn-primary min-h-[56px] text-[1.0625rem]" onPointerUp={() => setOpen(false)}>
+            <QuoteButton className="btn btn-primary min-h-[56px] text-[1.0625rem]" onBeforeOpen={() => setOpen(false)}>
               Get My Quote
             </QuoteButton>
             <a href={business.phone.href} className="btn btn-ghost min-h-[56px] text-[1.0625rem]">
