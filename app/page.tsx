@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/meta";
 import { Hero } from "@/components/sections/Hero";
 import { WhyIndependent } from "@/components/sections/WhyIndependent";
 import { ClientLedger } from "@/components/ClientLedger/ClientLedger";
@@ -19,16 +20,11 @@ export const metadata: Metadata = {
   description:
     "The Kaifer Insurance Group is a family owned independent insurance agency in Cockeysville, MD. Since 1974 we compare ten insurers for you. Get your quote today.",
   alternates: { canonical: "/" },
-  openGraph: {
-    url: "/",
-    title: "Insurance Agency in Cockeysville MD | Kaifer Insurance Group",
-    description:
-      "We don't work for an insurance company. We work for you. A family owned independent agency in Cockeysville, MD, since 1974.",
-  },
-  twitter: {
-    title: "Insurance Agency in Cockeysville MD | Kaifer Insurance Group",
-    description: "We don't work for an insurance company. We work for you. Family owned since 1974.",
-  },
+  ...social(
+    "/",
+    "Insurance Agency in Cockeysville MD | Kaifer Insurance Group",
+    "We don't work for an insurance company. We work for you. A family owned independent agency in Cockeysville, MD, since 1974.",
+  ),
 };
 
 export default function Home() {

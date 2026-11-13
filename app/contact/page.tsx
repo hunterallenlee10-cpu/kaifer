@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/meta";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
@@ -14,15 +15,11 @@ export const metadata: Metadata = {
   description:
     "Call, email or visit The Kaifer Insurance Group at 120 Cockeysville Rd #100, Cockeysville, MD 21030. Open weekdays. Request a quote or policy service online.",
   alternates: { canonical: "/contact" },
-  openGraph: {
-    url: "/contact",
-    title: "Contact Kaifer Insurance Group | Cockeysville, MD Insurance",
-    description: "Call (410) 584-7610, email, or visit 120 Cockeysville Rd #100, Cockeysville, MD 21030.",
-  },
-  twitter: {
-    title: "Contact Kaifer Insurance Group | Cockeysville, MD Insurance",
-    description: "Call (410) 584-7610, email, or visit 120 Cockeysville Rd #100, Cockeysville, MD 21030.",
-  },
+  ...social(
+    "/contact",
+    "Contact Kaifer Insurance Group | Cockeysville, MD Insurance",
+    "Call (410) 584-7610, email, or visit 120 Cockeysville Rd #100, Cockeysville, MD 21030.",
+  ),
 };
 
 const TILES = [
