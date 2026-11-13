@@ -244,6 +244,17 @@
   display: none;
 }
 
+/* The ledger tag's sideways nudge: a hint that the handle drags. */
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(7px);
+  }
+}
+
 @keyframes fade {
   from {
     opacity: 0;

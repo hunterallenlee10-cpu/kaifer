@@ -9,13 +9,26 @@ type Props = {
   pos: MotionValue<number>;
   activeYear: number | "next";
   focused: boolean;
+  /** Shows the "Click or drag" tag on the handle until the visitor first uses the ledger. */
+  hint: boolean;
   onPick: (yearPos: number, phase: "start" | "move" | "end") => void;
 };
 
 const YEARS = Array.from({ length: CURRENT_YEAR - FOUNDED + 1 }, (_, i) => FOUNDED + i);
 
+/** "Click or drag through our timeline", with a small pointer and a sideways nudge. */
+export function TimelineTag() {
+  return (
+    <span className="relative inline-block animate-[nudge_1.8s_ease-in-out_infinite] whitespace-nowrap rounded-[5px] bg-accent px-3 py-[7px] text-[0.75rem] font-semibold uppercase leading-none tracking-[0.1em] text-white motion-reduce:animate-none">
+      <span className="[@media(hover:none)]:hidden">Click</span>
+      <span className="hidden [@media(hover:none)]:inline">Tap</span> or drag through our timeline
+      <span className="absolute left-[14px] top-full -mt-[5px] h-[10px] w-[10px] rotate-45 rounded-[1px] bg-accent" />
+    </span>
+  );
+}
+
 /** The ruled line drawn to scale, with a tick per year and a round accent handle. */
-export function Timeline({ pos, activeYear, focused, onPick }: Props) {
+export function Timeline({ pos, activeYear, focused, hint, onPick }: Props) {
   const lineRef = useRef<HTMLDivElement>(null);
   const drag = useRef<{ id: number; x: number; dragging: boolean } | null>(null);
   const handle = useRef<HTMLDivElement>(null);
@@ -126,6 +139,14 @@ export function Timeline({ pos, activeYear, focused, onPick }: Props) {
         className="absolute top-[44px] z-10 -translate-x-1/2 -translate-y-1/2 cursor-grab p-2.5 active:cursor-grabbing"
         style={{ left: leftFor(pos.get()), touchAction: "none" }}
       >
+        {/* From tablet width up, the tag rides the handle and steps aside for good on first use. */}
+        <span
+          className={`pointer-events-none absolute bottom-[calc(100%-3px)] left-1/2 hidden -translate-x-[19px] transition-opacity duration-300 md:block ${
+            hint ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <TimelineTag />
+        </span>
         <span
           className={`block h-[26px] w-[26px] rounded-full border-[3px] border-paper bg-accent ring-1 ring-accent ${
             focused ? "outline-2 outline-offset-4 outline-accent-ink" : ""
