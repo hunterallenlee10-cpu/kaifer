@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { FOUNDED, YEARS_IN_BUSINESS, business } from "@/lib/business";
 import { JUMPS, SWEEP_TARGET, ledger } from "@/lib/ledger";
 import { LedgerCard } from "./LedgerCard";
-import { Timeline } from "./Timeline";
+import { Timeline, TimelineTag } from "./Timeline";
 import { indexAtOrBefore, nearestIndex, slots } from "./geometry";
 
 type Animate = (typeof import("./motion-features"))["animate"];
@@ -33,6 +33,7 @@ export function ClientLedger() {
   const [dir, setDir] = useState(1);
   const [focused, setFocused] = useState(false);
   const [spoken, setSpoken] = useState("");
+  const [hint, setHint] = useState(true);
   const pos = useMotionValue(slots[0]);
   const section = useRef<HTMLElement>(null);
   const strip = useRef<HTMLDivElement>(null);
@@ -57,6 +58,7 @@ export function ClientLedger() {
 
   const interrupt = () => {
     touched.current = true;
+    setHint(false);
     arm();
     sweep.current?.stop();
     sweep.current = null;
@@ -141,12 +143,20 @@ export function ClientLedger() {
           </p>
         </div>
 
-        <div className="mt-12">
+        <div className="mt-8 md:mt-12">
+          {/* On a phone the strip scrolls sideways, so the tag sits above it instead of riding the handle. */}
+          <p
+            aria-hidden="true"
+            className={`mb-1 pl-1 transition-opacity duration-300 md:hidden ${hint ? "opacity-100" : "opacity-0"}`}
+          >
+            <TimelineTag />
+          </p>
           <div ref={strip} className="no-scrollbar -mx-4 overflow-x-auto px-4 md:mx-0 md:overflow-visible md:px-0">
             <Timeline
               pos={pos}
               activeYear={entry.kind === "next" ? "next" : entry.year}
               focused={focused}
+              hint={hint}
               onPick={(yp, phase) => {
                 interrupt();
                 if (phase === "start") document.getElementById("ledger-range")?.focus({ preventScroll: true });
@@ -228,7 +238,7 @@ export function ClientLedger() {
             );
           })}
           <span className="ml-auto hidden text-[0.875rem] text-muted lg:inline">
-            Drag the handle, tap a year, or use the arrow keys.
+            The arrow keys work too.
           </span>
         </div>
       </div>
