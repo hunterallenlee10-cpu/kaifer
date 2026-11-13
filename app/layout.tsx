@@ -10,6 +10,7 @@ import { MobileBar } from "@/components/MobileBar";
 import { BackToTop } from "@/components/BackToTop";
 import { IS_LIVE, SITE_URL } from "@/lib/site";
 import { business } from "@/lib/business";
+import { social } from "@/lib/meta";
 
 const display = Newsreader({
   subsets: ["latin"],
@@ -38,24 +39,7 @@ export const metadata: Metadata = {
   // Demo mode stays out of Google. Live mode is indexable.
   robots: IS_LIVE ? { index: true, follow: true } : { index: false, follow: false },
   formatDetection: { telephone: false },
-  openGraph: {
-    type: "website",
-    siteName: business.name,
-    locale: "en_US",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "The Kaifer Insurance Group. We work for you. The KIG team at the Chili 8 cook-off.",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@KaiferIns",
-    images: ["/og-image.png"],
-  },
+  ...social("/", business.name, "We don't work for an insurance company. We work for you."),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
