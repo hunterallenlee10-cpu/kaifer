@@ -39,3 +39,7 @@ async function icon(size, pad, out) {
 
 await icon(512, 40, "app/icon.png");
 await icon(180, 16, "app/apple-icon.png");
+
+// A small logo for the nav, sized for 2x screens, so it never competes with the hero photo.
+await sharp(logo).resize({ width: 220 }).webp({ quality: 90 }).toFile("public/images/logo-nav.webp");
+console.log("public/images/logo-nav.webp");

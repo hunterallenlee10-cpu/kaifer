@@ -42,7 +42,8 @@ export function Hero() {
                 width={photos.hero.width}
                 height={photos.hero.height}
                 alt="Eight members of the Kaifer Insurance Group team in purple KIG shirts holding a $5,000 check to the Dawn Hill Fight Foundation beside the Chili 8 cook-off entry board."
-                priority
+                preload
+                fetchPriority="high"
                 sizes="(min-width: 1240px) 470px, (min-width: 1024px) 38vw, (min-width: 640px) 90vw, 100vw"
                 className="block h-auto w-full rounded-[3px]"
               />

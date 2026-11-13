@@ -196,7 +196,7 @@ export function ClientLedger() {
                 >
                   <p className="label">
                     {KIND_LABEL[e.kind]}
-                    {e.kind !== "next" ? <span className="text-muted/80"> · {e.year}</span> : null}
+                    {e.kind !== "next" ? <span> · {e.year}</span> : null}
                   </p>
                   {e.kind === "client" ? (
                     <blockquote className={`display mt-4 ${sizeFor(e.text)}`}>&ldquo;{e.text}&rdquo;</blockquote>

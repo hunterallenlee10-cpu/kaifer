@@ -114,7 +114,7 @@ export function QuoteForm({ preset, titleId, variant = "modal", onClose }: Props
         {step.key === "info" && <StepInfo s={s} set={set} errors={errors} uid={uid} />}
       </div>
 
-      <div className="mt-auto border-t border-rule bg-paper/60 px-5 py-4 sm:px-8">
+      <div className="sticky bottom-0 z-[1] mt-auto border-t border-rule bg-paper px-5 py-3.5 sm:px-8 sm:py-4">
         {last ? (
           <p className="mb-4 text-[0.875rem] leading-snug text-muted">
             Sending this request does not bind, change or cancel any coverage. Nothing changes until you hear from us

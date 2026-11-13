@@ -3,7 +3,10 @@
 import { X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useQuote } from "./QuoteContext";
-import { QuoteForm } from "./QuoteForm";
+import dynamic from "next/dynamic";
+
+// The form code loads the first time the builder opens, not with the page.
+const QuoteForm = dynamic(() => import("./QuoteForm").then((m) => m.QuoteForm), { ssr: false });
 
 /** The Quote Builder as a modal. Native <dialog> makes the page inert behind it. */
 export function QuoteModal() {

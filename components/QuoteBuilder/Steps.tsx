@@ -34,7 +34,7 @@ export function StepCoverage({ s, set, errors, uid }: StepProps) {
           {s.note}
         </p>
       ) : null}
-      <div className="grid grid-cols-1 gap-2 xs:grid-cols-2">
+      <div className="grid grid-cols-2 gap-2">
         {COVERAGE_OPTIONS.map((o) => (
           <CheckTile
             key={o.key}

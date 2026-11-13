@@ -32,7 +32,7 @@ export function CheckTile({
 }) {
   const base =
     size === "tile"
-      ? "min-h-[56px] px-4 py-3 text-[1rem] font-medium"
+      ? "min-h-[56px] px-3 py-3 text-[0.9375rem] font-medium sm:px-4 sm:text-[1rem]"
       : "min-h-[44px] px-3.5 py-2 text-[0.9375rem]";
   return (
     <label

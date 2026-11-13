@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { business, photos } from "@/lib/business";
 import { QuoteForm } from "@/components/QuoteBuilder/QuoteForm";
@@ -39,9 +40,9 @@ export default function ContactPage() {
           <nav aria-label="Breadcrumb" className="mb-8 text-[0.9375rem] text-muted">
             <ol className="flex gap-2">
               <li>
-                <a href="/" className="text-link">
+                <Link href="/" className="text-link">
                   Home
-                </a>
+                </Link>
               </li>
               <li aria-hidden="true">/</li>
               <li aria-current="page">Contact</li>

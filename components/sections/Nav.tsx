@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Menu, Phone, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { business, photos } from "@/lib/business";
+import { business } from "@/lib/business";
 import { QuoteButton } from "@/components/QuoteBuilder/QuoteButton";
 
 export const NAV_LINKS = [
@@ -40,7 +39,7 @@ export function Nav() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 backdrop-blur-[6px] supports-[backdrop-filter]:bg-paper/85">
+    <header className="sticky top-0 z-40 border-b border-rule bg-paper">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-[6px] focus:bg-sheet focus:px-4 focus:py-2"
@@ -49,15 +48,9 @@ export function Nav() {
       </a>
       <div className="wrap flex h-16 items-center gap-4 lg:h-[72px]">
         <Link href="/" className="mr-auto flex shrink-0 items-center py-1" aria-label="The Kaifer Insurance Group, home">
-          <Image
-            src={photos.logo.src}
-            width={photos.logo.width}
-            height={photos.logo.height}
-            alt=""
-            priority
-            sizes="104px"
-            className="h-[42px] w-auto lg:h-[48px]"
-          />
+          {/* A plain, pre-sized image: the hero photo keeps the network to itself. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/logo-nav.webp" width={220} height={106} alt="" decoding="async" className="h-[42px] w-auto lg:h-[48px]" />
         </Link>
 
         <nav aria-label="Sections" className="hidden xl:block">

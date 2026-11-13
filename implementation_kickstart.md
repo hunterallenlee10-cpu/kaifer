@@ -29,28 +29,28 @@ Concept site by Lee Enterprises Unlimited. A front-end-only Next.js build, "Blue
 
 ## Build checklist
 
-- [ ] Phase 1: scaffold, tokens, fonts, nav, hero with the Shop-Around, footer
-- [ ] Phase 2: Why independent, the Client-Family Ledger with `lib/ledger.ts`
-- [ ] Phase 3: seasonal band, coverage bento, the team
-- [ ] Phase 4: Give Back, How it works, Client Desk, reviews, FAQ, final call to action
-- [ ] Phase 5: Quote Builder in both modes, wiring and pre-selects, prefilled email, mobile sticky bar, `/contact`
-- [ ] Phase 6: launch switch, titles and descriptions, single h1, JSON-LD, robots, sitemap, `llms.txt`, OG image, favicon, 404, images, `SEO-LAUNCH.md`
-- [ ] Phase 6b: Lighthouse against a production build, mobile and desktop, in live and demo mode
-- [ ] Phase 7: final review, commit, ready for GitHub and Vercel
+- [x] Phase 1: scaffold, tokens, fonts, nav, hero with the Shop-Around, footer
+- [x] Phase 2: Why independent, the Client-Family Ledger with `lib/ledger.ts`
+- [x] Phase 3: seasonal band, coverage bento, the team
+- [x] Phase 4: Give Back, How it works, Client Desk, reviews, FAQ, final call to action
+- [x] Phase 5: Quote Builder in both modes, wiring and pre-selects, prefilled email, mobile sticky bar, `/contact`
+- [x] Phase 6: launch switch, titles and descriptions, single h1, JSON-LD, robots, sitemap, `llms.txt`, OG image, favicon, 404, images, `SEO-LAUNCH.md`
+- [x] Phase 6b: Lighthouse against a production build, mobile and desktop, in live and demo mode
+- [x] Phase 7: final review, commit, ready for GitHub and Vercel
 
 ## Final review checklist
 
-- [ ] The hero sells the job. The Shop-Around plays once. At 375px the headline and primary button are visible without scrolling.
-- [ ] The ledger moves through every entry in order and ends on "You.". It works with mouse, touch and keyboard. The quotes are exact.
-- [ ] No looked-up numbers.
-- [ ] Every quote button pre-selects correctly. The Client Desk opens service mode. The phone, email, ERIE and directions links work.
-- [ ] Every "only this business" item is present.
-- [ ] Zero em dashes, zero double hyphens, zero stock or AI images, zero insurer logos, zero invented facts.
-- [ ] The DRAFT comments are in place.
-- [ ] No family details, no names on faces, no savings promises, no legal advice.
-- [ ] Two fonts, three colours plus text, motion in two sections.
-- [ ] At 375px: no overflow, the burger works, the sticky bar works.
-- [ ] Footer on both pages. Demo mode is noindex. Live mode is index with a sitemap.
-- [ ] The OG image and favicon are the agency's own.
-- [ ] Lighthouse SEO 100 in live mode. Performance, Accessibility and Best Practices at 90 or higher.
-- [ ] One h1 per page. The titles and descriptions are unique. The JSON-LD validates.
+- [x] The hero sells the job. The Shop-Around plays once. At 375px the headline and primary button are visible without scrolling.
+- [x] The ledger moves through every entry in order and ends on "You.". It works with mouse, touch and keyboard. The quotes are exact.
+- [x] No looked-up numbers.
+- [x] Every quote button pre-selects correctly. The Client Desk opens service mode. The phone, email, ERIE and directions links work.
+- [x] Every "only this business" item is present.
+- [x] Zero em dashes, zero double hyphens, zero stock or AI images, zero insurer logos, zero invented facts.
+- [x] The DRAFT comments are in place.
+- [x] No family details, no names on faces, no savings promises, no legal advice.
+- [x] Two fonts, three colours plus text, motion in two sections.
+- [x] At 375px: no overflow, the burger works, the sticky bar works.
+- [x] Footer on both pages. Demo mode is noindex. Live mode is index with a sitemap.
+- [x] The OG image and favicon are the agency's own.
+- [x] Lighthouse SEO 100 in live mode. Performance, Accessibility and Best Practices at 90 or higher.
+- [x] One h1 per page. The titles and descriptions are unique. The JSON-LD validates.
